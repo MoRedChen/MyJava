@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"   xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Red's Clothes</title>
+    <link rel="icon" href="http://127.0.0.1:8080/imgs/icon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <!--[if lt IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        .navbar {
+            font-size: 16px;
+            font-family: "karla", "-apple-system", "BlinkMacSystemFont", "segoe ui", "微軟正黑體", "microsoft jhenghei", sans-serif;
+            margin-top: 0;
+        }
+        
+        .form-control {
+            font-size: 16px;
+            font-family: "karla", "-apple-system", "BlinkMacSystemFont", "segoe ui", "微軟正黑體", "microsoft jhenghei", sans-serif;
+        }
+        
+        .dropdown-menu>li {
+            font-size: 16px;
+            font-family: "karla", "-apple-system", "BlinkMacSystemFont", "segoe ui", "微軟正黑體", "microsoft jhenghei", sans-serif;
+        }
+        
+        .navbar-inverse .navbar-nav>li>a {
+            color: #fff;
+            transition: 0.3s;
+        }
+        
+        .navbar-inverse .navbar-nav>li>a:hover {
+            color: #888;
+        }
+        
+        .navbar-brand {
+            padding: 9px 20px;
+        }
+        
+        .btn-fzs {
+            display: inline-block;
+            background-color: transparent;
+            border-width: 1px;
+            border-style: solid;
+            border-color: initial;
+            border-radius: 4px;
+            cursor: pointer;
+            padding: .75rem 1.5rem;
+            line-height: 1em;
+            opacity: .9;
+            white-space: nowrap;
+            transform: translateZ(0);
+            font-size: 15px;
+        }
+        
+        .fa-fz {
+            font-size: 25px;
+        }
+        
+        @media screen and (min-width:768px) and (max-width: 1200px) {
+            .navbar .container {
+                width: 100%;
+            }
+            /* 漢堡選單與頁首 */
+            .navbar-toggle {
+                float: right;
+                margin-right: 0;
+            }
+            .navbar-header {
+                width: 100%;
+            }
+            /* 自訂 */
+            .my-navbar {
+                position: fixed;
+                background-color: #2c2c2c;
+                overflow: auto;
+                width: 70%;
+                top: 50px;
+                z-index: 9;
+                height: calc(100vh - 50px);
+                transition: 1s;
+            }
+            .navbar-brand {
+                margin-left: 40px;
+            }
+            /* 自訂 */
+            /* 選單隱藏區 */
+            .collapsing.navbar-collapse {
+                margin-left: -15px;
+                margin-right: -15px;
+            }
+            .collapse.navbar-collapse {
+                /* padding: 0; */
+                margin-left: -15px;
+                margin-right: -15px;
+                display: none!important;
+            }
+            .collapse.navbar-collapse.in {
+                display: block!important;
+            }
+            /* 選單項目 */
+            .navbar-nav {
+                margin-left: -15px;
+                margin-right: -15px;
+                float: none;
+            }
+            .navbar-nav.navbar-right,
+            .navbar-form.navbar-left {
+                float: none!important;
+                display: block;
+                padding: 0;
+            }
+            .nav>li {
+                position: relative;
+                display: block;
+                width: 100%;
+            }
+            .nav>li>a {
+                position: relative;
+                display: block;
+                padding: 10px 15px;
+            }
+            .navbar-nav>li>a {
+                line-height: 20px;
+                float: none;
+            }
+            .navbar-form {
+                position: relative;
+            }
+            .navbar-form .form-group {
+                display: block;
+            }
+            .navbar-form .btn {
+                position: absolute;
+                right: 0;
+                top: 0;
+                border-radius: 0 6px 6px 0;
+            }
+            .navbar-form .form-control {
+                display: block;
+                width: 100%;
+            }
+            .navbar-right-none {
+                float: none !important;
+                margin-right: -15px;
+                padding-right: 30px;
+            }
+        }
+        
+        @media screen and (max-width:1200px) {
+            .navbar {
+                z-index: 16;
+            }
+            /* 自訂 */
+            .my-navbar {
+                position: fixed;
+                background-color: #2c2c2c;
+                overflow: auto;
+                width: 70%;
+                top: 50px;
+                z-index: 9;
+                height: calc(100vh - 50px);
+                transition: 1s;
+            }
+            .navbar-brand {
+                margin-left: 20px;
+            }
+            /* 自訂 */
+            .my-navbar .navbar-nav {
+                margin: 0;
+            }
+            .leftIn {
+                left: -100%;
+            }
+            .rightIn {
+                right: -100%;
+            }
+            .my-navbar.leftIn.open {
+                left: 0;
+            }
+            .my-navbar.rightIn.open {
+                right: 0;
+            }
+            .navbar-form {
+                margin: 10px;
+            }
+        }
+        
+        .navbar {
+            margin-bottom: 0;
+        }
+        /* navbar 導覽列 結束 */
+        
+        .breadcrumb {
+            margin: 20px;
+            background-color: rgba(255, 255, 255, 1);
+        }
+        
+        .breadcrumb>li>a {
+            text-decoration: none;
+        }
+        
+        .btn-transparent {
+            color: rgba(255, 255, 255, 1);
+            background-color: rgba(8, 8, 8, 0.5);
+            border-color: rgba(8, 8, 8, 1);
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        
+        .btn-transparent:focus,
+        .btn-transparent:hover {
+            color: rgba(255, 255, 255, 1);
+            background-color: rgba(8, 8, 8, 0.8);
+            border-color: rgba(8, 8, 8, 1);
+            font-weight: bold;
+        }
+        /* ---------- footer 相關 ------------------------- */
+        /* 整體設定 */
+        
+        .page-footer {
+            background-color: rgba(8, 8, 8, 1);
+            color: rgba(255, 255, 255, .6);
+            padding: 16px 0;
+        }
+        /* 超連結 */
+        
+        .page-footer>.footer-copyright>a {
+            color: #fff;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        /* -------------------------------------------------- */
+        
+        .animate {
+            -moz-transition: 2s ease-in-out;
+            -webkit-transition: 2s ease-in-out;
+            transition: 2s ease-in-out;
+            -moz-animation: fadeIn ease-in 1;
+            -webkit-animation: fadeIn ease-in 1;
+            animation: fadeIn ease-in 1;
+            -webkit-animation-fill-mode: forwards;
+            -webkit-animation-fill-mode: forwards;
+            animation-fill-mode: forwards;
+            -webkit-animation-duration: 1s;
+            -moz-animation-duration: 1s;
+            animation-duration: 1s;
+        }
+        
+        #phone.animate {
+            -webkit-transform: translate(14em, 0);
+            -moz-transform: translate(14em, 0);
+            transform: translate(14em, 0);
+        }
+        
+        #monitor.animate {
+            -webkit-transform: translate(3em, 0);
+            -moz-transform: translate(3em, 0);
+            transform: translate(3em, 0);
+        }
+        
+        .app-container {
+            min-height: 600px;
+            margin-top: 70px;
+        }
+        
+        .badge {
+            padding-left: 9px;
+            padding-right: 9px;
+            -webkit-border-radius: 9px;
+            -moz-border-radius: 9px;
+            border-radius: 9px;
+        }
+        
+        .label-warning[href],
+        .badge-warning[href] {
+            background-color: #c67605;
+        }
+        
+        #lblCartCount {
+            font-size: 12px;
+            background: #ff0000;
+            color: #fff;
+            padding: 0 5px;
+            vertical-align: top;
+            margin-left: -10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-inverse navbar-expand navbar-nav navbar-fixed-top" role="navigation" id="topheader" style="clear: both; width: 100%; margin: 0;">
+        <div class="container" style="display: block;">
+            <ul class="nav navbar-nav" style="width: 100%;">
+                <li style="text-align: left; margin: 0px 30px; float: left;"><a class="navbar-brand" href="/"><img src="http://127.0.0.1:8080/imgs/logo.png" width="32" height="32" class="img-circle" style="margin: 0px 30px; padding: 0;" alt=""></a></li>
+                <li style="text-align: right; margin: 0px 30px; float: right;"><a href="/cart"><i class="fa fa-shopping-cart" style="color: #fff;font-size:26px;"></i><span th:if = "${session.cart != null && !session.cart.empty}" class='badge badge-warning' id='lblCartCount' th:text = "${session.cart.size()}"></span></a></li>
+            </ul>
+        </div>
+    </nav>
+
+
+
+
+
+
+    <div class="container">
+        <div class="row">
+            <div class="app-container">
+                <div class="col-lg-12 mb-2">
+                    <h1>服飾訂購選單</h1>
+                </div>
+                <!-- query criteria  card -->
+                <div class="col-lg-9 mb-2">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="text-uppercase mb-0">篩選條件</h3>
+                        </div>
+                        <div class="card-body">
+
+                            <div class="row">
+
+                                <div class="col-md-4">
+                                    <!-- Search form -->
+                                    <form  action="/searchProductByName" class="form-group">
+                                        <div class="input-group mb-2">
+                                            <input type="search" name="name" class="form-control" placeholder="名稱關鍵字"/>
+                                            <button type="submit" class="btn btn-primary">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <!-- Search form -->
+                                    <form  th:action="@{/searchProductByPrice}" class="form-group">
+                                        <div class="input-group mb-2">
+
+                                            <input type="search" name="price" class="form-control" placeholder="單價低於..."/>
+
+                                            <button type="submit" class="btn btn-primary">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </form>
+
+                                </div>
+
+                                <div class="col-md-4">
+                                    <!-- 種類 -->
+                                    <form  action="/searchProductByCate" class="form-group">
+
+                                        <div class="input-group">
+                                            <select name="category" class="form-control">
+                                                <option selected>衣服</option>
+                                                <option>褲子</option>
+                                                <option>外套</option>
+                                            </select>
+
+                                            <button type="submit" class="btn btn-primary">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+
+                                        </div>
+
+                                    </form>
+                                </div><!-- column -->
+
+                            </div> <!-- row -->
+                        </div><!-- card body -->
+                    </div><!-- card -->
+
+                </div><!-- column -->
+                <!-- query criteria area -->
+
+                <div class="col-xs-12 col-sm-12">
+                    <div  th:each="prod:${products}" class="col-xs-12 col-sm-4">
+                        <div class="thumbnail">
+                            <img th:src="'http://127.0.0.1:8080/imgs/'+${prod.photo}" style="max-height: 280px;" alt="">
+                            <div class="caption">
+                                <h2 th:text="${prod.name}"></h2>
+                                <p th:text="'$'+${prod.price}"></p>
+                                <p>
+                                    <form  action="/addToCart"  method="POST"  class="form-group"><div class="input-group">
+                                            <select name="size" class="form-control" id="order-size-id">
+                                                <option>SS</option>
+                                                <option>S</option>
+                                                <option>M</option>
+                                                <option>L</option>
+                                                <option>XL</option>
+                                            </select>
+                                            <select name="quantity" class="form-control" id="order-qty-id">
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                                <option>5</option>
+                                            </select>
+                                            <button type="submit" class="btn btn-success btn-block"><i class="fa fa-cart-plus"></i> 加入購物車</button>
+                                            <input type="hidden" name="prod_id" th:value="${prod.product_id}" />
+                                        </div>
+                                    </form>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div> <!-- column -->
+
+                
+
+            </div>
+        </div>
+        <!-- Row -->
+    </div>
+    <!--Container -->
+
+
+
+
+
+    <!-- Footer -->
+    <footer class="page-footer font-small" style="clear: both;">
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3">© 2021 Copyright:
+            <a routerLink="/"> Red's Clothes</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+
+</html>
