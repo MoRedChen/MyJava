@@ -1,2 +1,4 @@
-# MyJava
-My Java project. POS_System is made by JavaFX. MyCRUD, MyWeb are made by SpringBoot. And MyDb is my mariadb SQL.
+# About
+<b>POS_System</b> is made by JavaFX. <br>
+<b>MyCRUD</b>, <b>MyWeb</b> are made by SpringBoot. <br>
+And <b>MyDb</b> is my mariadb SQL.
